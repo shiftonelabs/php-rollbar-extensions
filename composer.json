@@ -16,10 +16,10 @@
     },
     "require": {
         "php": ">=5.5.0",
-        "rollbar/rollbar": ">=1.0.0"
+        "rollbar/rollbar": ">=1.2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": ">=4.0",
+        "phpunit/phpunit": "4.8.* || ^5",
         "squizlabs/php_codesniffer": "2.*",
         "shiftonelabs/codesniffer-standard": "0.*"
     },
