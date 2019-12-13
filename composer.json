@@ -1,0 +1,40 @@
+{
+    "name": "shiftonelabs/php-rollbar-extensions",
+    "description": "Adds extra strategies for PHP Rollbar customization.",
+    "keywords": ["php", "rollbar"],
+    "homepage": "https://github.com/shiftonelabs/php-rollbar-extensions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Patrick Carlo-Hickman",
+            "email": "patrick@shiftonelabs.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/shiftonelabs/php-rollbar-extensions/issues",
+        "source": "https://github.com/shiftonelabs/php-rollbar-extensions"
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "rollbar/rollbar": ">=1.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=4.0",
+        "squizlabs/php_codesniffer": "2.*",
+        "shiftonelabs/codesniffer-standard": "0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ShiftOneLabs\\PhpRollbarExtensions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ShiftOneLabs\\PhpRollbarExtensions\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

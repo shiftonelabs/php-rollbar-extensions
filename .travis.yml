@@ -1,0 +1,41 @@
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+
+env:
+  - dependencies=lowest
+  - dependencies=highest
+
+jobs:
+  include:
+    - dist: trusty
+      php: 5.5
+      env: dependencies=lowest
+    - dist: trusty
+      php: 5.5
+      env: dependencies=highest
+
+before_install:
+  - composer self-update
+
+install:
+  - if [ "$dependencies" = "lowest" ]; then travis_wait composer update --prefer-dist --no-interaction --prefer-lowest ; fi;
+  - if [ "$dependencies" != "lowest" ]; then travis_wait composer update --prefer-dist --no-interaction; fi;
+
+script:
+  - ./vendor/bin/phpcs
+  - ./vendor/bin/phpunit --coverage-clover ./clover.xml
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover ./clover.xml
