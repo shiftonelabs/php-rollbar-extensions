@@ -29,7 +29,8 @@ class AddExceptionPropertiesTransformer implements TransformerInterface
     {
         // The interface docblock only specifies Exceptions and Throwables, but
         // $toLog can also be a string. Make sure we only work on Throwables.
-        if (!$toLog instanceof Throwable) {
+        // Also check for Exception to support PHP < 7.
+        if (!$toLog instanceof Throwable && !$toLog instanceof Exception) {
             return $payload;
         }
 
@@ -45,11 +46,11 @@ class AddExceptionPropertiesTransformer implements TransformerInterface
     /**
      * Recursively get the property values for the exception chain.
      *
-     * @param  \Throwable  $exception
+     * @param  \Exception|\Throwable  $exception
      *
      * @return array
      */
-    protected function getPropertyValues(Throwable $exception)
+    protected function getPropertyValues($exception)
     {
         // Get all the values of all the object's properties. Use reflection
         // to access all the defined properties, and use get_object_vars
@@ -78,7 +79,8 @@ class AddExceptionPropertiesTransformer implements TransformerInterface
         );
 
         // Go down the exception chain to get all the nested exception values.
-        if (($previous = $exception->getPrevious()) instanceof Throwable) {
+        $previous = $exception->getPrevious();
+        if ($previous instanceof Throwable || $previous instanceof Exception) {
             $properties['previous'] = [get_class($previous) => $this->getPropertyValues($previous)];
         }
 

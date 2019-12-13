@@ -68,6 +68,10 @@ class AddExceptionPropertiesTransformerTest extends TestCase
 
     public function test_base_error_is_transformed()
     {
+        if (!class_exists(Throwable::class) && !class_exists(Error::class)) {
+            return $this->markTestSkipped('Error class does not exist in PHP < 7.');
+        }
+
         $toLog = new Error('Test log message');
 
         $payload = $this->buildPayload($toLog);
